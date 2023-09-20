@@ -34,9 +34,19 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
         redirect: 'follow'
     };
 
-    fetch("https://dev.systembiletowy.pl/service.php/home/login.json", requestOptions)
+   fetch("https://dev.systembiletowy.pl/service.php/home/login.json", requestOptions)
         .then(response => response.text())
-        .then(result => console.log(result))
+        .then(result => {
+            // Assuming result is a JSON string, parse it into an object
+            var data = JSON.parse(result);
+
+            if (data.session) {
+                // Redirect to a different website
+                window.location.href = "webgl.html";
+            } else {
+                console.log("Login failed.");
+            }
+        })
         .catch(error => console.log('error', error));
 });
 </script>
