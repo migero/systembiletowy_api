@@ -17,6 +17,10 @@
         <input type="password" id="password" name="password" required><br><br>
         <input type="submit" value="Submit">
     </form>
+    <h1>Get JSON</h1>
+    <form id="getJSONForm">
+        <input type="submit" value="Get JSON">
+    </form>
     <script>
         document.getElementById('loginForm').addEventListener('submit', function(event) {
             event.preventDefault();
@@ -40,6 +44,38 @@
                 .catch(error => console.log('error', error));
         });
         </script>
+          <script>
+            document.getElementById('getJSONForm').addEventListener('submit', function(event) {
+    event.preventDefault();  // Prevent the default form submission behavior
+
+    var formdata = new FormData();
+
+    var requestOptions = {
+        method: 'GET',
+        body: formdata,
+        redirect: 'follow'
+    };
+
+    fetch("https://dev.systembiletowy.pl/service.php/sbLocationService/list.json", requestOptions)
+        .then(response => response.json())  // Assuming the response is JSON
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
+});
+
+        </script>
         
 </body>
 </html>
+var formdata = new FormData();
+
+var requestOptions = {
+  method: 'GET',
+  body: formdata,
+  redirect: 'follow'
+};
+
+fetch("https://dev.systembiletowy.pl/service.php/sbLocationService/list.json", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+  https://dev.systembiletowy.pl/service.php/sbLocationService/forSale.json?id=3174
