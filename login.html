@@ -40,7 +40,14 @@
         
             fetch("https://dev.systembiletowy.pl/service.php/home/login.json", requestOptions)
                 .then(response => response.text())
-                .then(result => document.cookie = result)
+                .then(result => {
+        document.cookie = `user_id=${result.user_id}`;
+        document.cookie = `login=${result.login}`;
+        document.cookie = `email=${result.email}`;
+        document.cookie = `name=${result.name}`;
+        document.cookie = `session=${result.session}`;
+        console.log("Cookies set successfully");
+    })
                 .catch(error => console.log('error', error));
         });
         </script>
