@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Form</title>
-</head>
-<body>
-<script>
+	
+	<script>
 document.getElementById('loginForm').addEventListener('submit', function(event) {
     event.preventDefault();
 
@@ -29,6 +28,9 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
         .catch(error => console.log('error', error));
 });
 </script>
+</head>
+<body>
+
 
     <h1>Login</h1>
     <form id="loginForm">
