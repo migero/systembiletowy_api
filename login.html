@@ -63,7 +63,7 @@
         redirect: 'follow'
     };
 
-    fetch("https://dev.systembiletowy.pl/service.php/sbLocationService/list.json?id=3", requestOptions)
+    fetch("https://dev.systembiletowy.pl/service.php/sbLocationService/forSale.json?id=3174", requestOptions)
         .then(response => response.text())  
         .then(result => console.log(result))
         .catch(error => console.log('error', error));
