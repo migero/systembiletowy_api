@@ -41,8 +41,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
             var data = JSON.parse(result);
 
             if (data.session) {
-                // Redirect to a different website
-                window.location.href = "webgl.html";
+                console.log("Login ok");
             } else {
                 console.log("Login failed.");
             }
@@ -52,3 +51,4 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
 </script>
 </body>
 </html>
+
