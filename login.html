@@ -39,7 +39,7 @@
             };
         
             fetch("https://dev.systembiletowy.pl/service.php/home/login.json", requestOptions)
-                .then(response => response.text())
+                .then(response => response.json())
                 .then(result => {
         document.cookie = `user_id=${result.user_id}`;
         document.cookie = `login=${result.login}`;
@@ -64,7 +64,7 @@
     };
 
     fetch("https://dev.systembiletowy.pl/service.php/sbLocationService/list.json", requestOptions)
-        .then(response => response.json())  // Assuming the response is JSON
+        .then(response => response.text())  
         .then(result => console.log(result))
         .catch(error => console.log('error', error));
 });
