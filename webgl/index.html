@@ -12,10 +12,17 @@
     <div id="unity-container" class="unity-desktop">
 	<script>
     function sendMessageToUnity(jsonString) {
-        // Call a Unity function and pass the JSON string
-        unityInstance.SendMessage('Stage', 'ReceiveJsonData', "https://migero.github.io/systembiletowy_api/webgl/json.json");
+        if (unityInstance) {
+            unityInstance.SendMessage('Stage', 'ReceiveJsonData', "https://migero.github.io/systembiletowy_api/webgl/json.json");
+        } else {
+
+            setTimeout(function () {
+                sendMessageToUnity(jsonString);
+            }, 500);
+        }
     }
-	</script>
+</script>
+
 	<script>
 	function ShowSweetAlert(text) {
     Swal.fire({
