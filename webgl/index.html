@@ -11,6 +11,12 @@
   <body>
     <div id="unity-container" class="unity-desktop">
 	<script>
+    function sendMessageToUnity(jsonString) {
+        // Call a Unity function and pass the JSON string
+        unityInstance.SendMessage('Stage', 'ReceiveJsonData', "https://migero.github.io/systembiletowy_api/webgl/json.json");
+    }
+	</script>
+	<script>
 	function ShowSweetAlert(text) {
     Swal.fire({
         title: 'Button Text',
@@ -67,11 +73,11 @@
       }
 
       var buildUrl = "Build";
-      var loaderUrl = buildUrl + "/page.loader.js";
+      var loaderUrl = buildUrl + "/webgl.loader.js";
       var config = {
-        dataUrl: buildUrl + "/page.data",
-        frameworkUrl: buildUrl + "/page.framework.js",
-        codeUrl: buildUrl + "/page.wasm",
+        dataUrl: buildUrl + "/webgl.data",
+        frameworkUrl: buildUrl + "/webgl.framework.js",
+        codeUrl: buildUrl + "/webgl.wasm",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "87gu",
         productName: "Sala_bake_webgl",
