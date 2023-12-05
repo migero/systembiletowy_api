@@ -12,12 +12,24 @@
     <div id="unity-container" class="unity-desktop">
 	<script>
 	function ShowSweetAlert(text) {
-    Swal.fire({
-        title: 'Informacje o miejscu',
-        text: text,
-        icon: 'success',
-        confirmButtonText: 'OK'
-    });
+	Swal.fire({
+					swal_title = 'Informacje o miejscu';
+                    swal_content = '<div>' + (el.find('section').length > 0 ? 'sektor: <strong>' + el.find('section').text() + '</strong>; ' : '') + 'rzad: <strong>' + el.find('row').text() + '</strong>; miejsce: <strong>' + el.find('number').text() + '</strong>;</div>';
+                    swal_title = 'Informacje o miejscu';
+                    swal_content = swal_content + '<div class="price">cena: <span>' + el.find('info').attr('price') + '.</span></div>';
+                    showConfirmButton = true;
+Swal.fire({
+                    title: swal_title,
+                    html: swal_content,
+                    icon: 'info',
+                    showCancelButton: true,
+                    cancelButtonText: 'Anuluj',
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Dodaj do koszyka!',
+                    showConfirmButton: showConfirmButton,
+                });
+	});
 	}
 	</script>
       <canvas id="unity-canvas" width=960 height=600></canvas>
