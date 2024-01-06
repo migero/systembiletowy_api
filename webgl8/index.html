@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Unity WebGL Player | Sala_bake_webgl</title>
+    <link rel="shortcut icon" href="TemplateData/favicon.ico">
+    <link rel="stylesheet" href="TemplateData/style.css">
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+	<style>
+		#customTooltip {
+            position: absolute;
+			display:none;
+			
+			z-index:999;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+  </head>
+  <body>
+  <button onclick="triggerZobaczKrzeslo()">Cofnij do sektoru</button>
+  <button onclick="triggerpoczatek()">Cofnij do początku</button>
+  <button onclick="loadJsonAndCallFunction()">Wczytajjson</button>
+   <button onclick="zamienkrzeslo()">Zmiana</button>
+
+    <div id="unity-container" class="unity-desktop">
+	<script>
+	function ShowSweetAlert(text) {
+  Swal.fire({
+    title: 'Informacje o miejscu',
+    text: text,
+    showCancelButton: true,
+    confirmButtonText: 'Zakup biletu',
+    cancelButtonText: 'Zobacz miejsce',
+    reverseButtons: true
+  }).then(function(result) {
+    if (result.value) {
+      Swal.fire(
+        'Dodano do koszuka!'
+      )
+	  myGameInstance.SendMessage('Stage', 'trigger', 'back');
+    } else if (result.dismiss === 'cancel') {
+      triggerZobaczKrzeslo();
+    }
+  });
+	}
+	</script>
+      <canvas id="unity-canvas" width=960 height=600></canvas>
+      <div id="unity-loading-bar">
+        <div id="unity-logo"></div>
+        <div id="unity-progress-bar-empty">
+          <div id="unity-progress-bar-full"></div>
+        </div>
+      </div>
+      <div id="unity-warning"> </div>
+
+      <div id="unity-footer">
+        <div id="unity-fullscreen-button"></div>
+      </div>
+    </div>
+	<div id="customTooltip">
+    Hello, World!
+</div>
+    <script>
+    var unityContainer = document.getElementById('unity-container');
+    var customTooltip = document.getElementById('customTooltip');
+	var $customTooltip = $('#customTooltip');
+
+	unityContainer.addEventListener('mousemove', function (event) {
+    $customTooltip.css({
+		display: 'none',
+        left: event.pageX + 10,  // Adjust as needed
+        top: event.pageY + 10    // Adjust as needed
+		
+    });
+	});
+
+window.customTooltip = function (text) {
+    // Convert customTooltip to a jQuery object
+        $customTooltip.text(text);
+        $customTooltip.css({
+            display: 'block'
+        });
+};
+
+      var container = document.querySelector("#unity-container");
+      var canvas = document.querySelector("#unity-canvas");
+      var loadingBar = document.querySelector("#unity-loading-bar");
+      var progressBarFull = document.querySelector("#unity-progress-bar-full");
+      var fullscreenButton = document.querySelector("#unity-fullscreen-button");
+      var warningBanner = document.querySelector("#unity-warning");
+	  var myGameInstance = null;
+      function unityShowBanner(msg, type) {
+        function updateBannerVisibility() {
+          warningBanner.style.display = warningBanner.children.length ? 'block' : 'none';
+        }
+        var div = document.createElement('div');
+        div.innerHTML = msg;
+        warningBanner.appendChild(div);
+        if (type == 'error') div.style = 'background: red; padding: 10px;';
+        else {
+          if (type == 'warning') div.style = 'background: yellow; padding: 10px;';
+          setTimeout(function() {
+            warningBanner.removeChild(div);
+            updateBannerVisibility();
+          }, 5000);
+        }
+        updateBannerVisibility();
+      }
+
+      var buildUrl = "Build";
+      var loaderUrl = buildUrl + "/webgl.loader.js";
+      var config = {
+        dataUrl: buildUrl + "/webgl.data",
+        frameworkUrl: buildUrl + "/webgl.framework.js",
+        codeUrl: buildUrl + "/webgl.wasm",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "Sala",
+        productName: "Sala",
+        productVersion: "0.2",
+        showBanner: unityShowBanner,
+      };
+
+
+
+        canvas.style.width = "960px";
+        canvas.style.height = "600px";
+
+
+      loadingBar.style.display = "block";
+
+      var script = document.createElement("script");
+      script.src = loaderUrl;
+      script.onload = () => {
+        createUnityInstance(canvas, config, (progress) => {
+          progressBarFull.style.width = 100 * progress + "%";
+        }).then((unityInstance) => {
+		myGameInstance = unityInstance;
+		loadJsonAndCallFunction()
+		
+          loadingBar.style.display = "none";
+          fullscreenButton.onclick = () => {
+            unityInstance.SetFullscreen(1);
+          };
+        }).catch((message) => {
+          alert(message);
+        });
+      };
+      document.body.appendChild(script);
+
+	function triggerZobaczKrzeslo() {
+        myGameInstance.SendMessage('Stage', 'trigger', 'select');
+    }
+	
+	function triggerpoczatek() {
+		myGameInstance.SendMessage('Stage', 'trigger', 'back');
+	}
+	function zamienkrzeslo() {
+		myGameInstance.SendMessage('Amfiteatr', 'ReloadID', "1192,990000");
+	}
+	
+	function loadJsonAndCallFunction() {
+	
+    const jsonFilePath = 'json.json';
+
+            fetch(jsonFilePath)
+                .then(response => {
+                    // Check if the response is successful
+                    if (!response.ok) {
+                        throw new Error(`Failed to fetch JSON: ${response.status} ${response.statusText}`);
+                    }
+
+                    // Parse the JSON response
+                    return response.json();
+                })
+                .then(jsonData => {
+                    // Convert the JSON data to a string
+                    const jsonString = JSON.stringify(jsonData);
+
+                    // Call your function with the JSON string
+					myGameInstance.SendMessage('Amfiteatr', 'Setjson', jsonString);
+                    // myGameInstance.SendMessage('Amfiteatr', 'LoadJson', jsonString);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+    }
+
+        
+	
+    </script>
+	
+  </body>
+</html>
