@@ -23,7 +23,7 @@
     </style>
   </head>
   <body>
-  <button onclick="triggerZobaczKrzeslo()">Cofnij do sektoru</button>
+  <button onclick="triggerZobaczSektor()">Cofnij do sektoru</button>
   <button onclick="triggerpoczatek()">Cofnij do początku</button>
   <button onclick="loadJsonAndCallFunction()">Wczytajjson</button>
    <button onclick="zamienkrzeslo()">Zmiana</button>
@@ -155,6 +155,9 @@ window.customTooltip = function (text) {
 
 	function triggerZobaczKrzeslo() {
         myGameInstance.SendMessage('Stage', 'trigger', 'select');
+    }
+	function triggerZobaczSektor() {
+        myGameInstance.SendMessage('Stage', 'trigger', 'sektor');
     }
 	
 	function triggerpoczatek() {
