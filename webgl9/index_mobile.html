@@ -26,7 +26,8 @@
   <button onclick="triggerZobaczSektor()">Cofnij do sektoru</button>
   <button onclick="triggerpoczatek()">Cofnij do początku</button>
   <button onclick="loadJsonAndCallFunction()">Wczytajjson</button>
-   <button onclick="zamienkrzeslo()">Zmiana</button>
+   <button onclick="zamienkrzeslo()">Zmiana kolorow</button>
+   <button onclick="pokoloruj()">Zaznacz krzeslo</button>
 
     <div id="unity-container" class="unity-desktop">
 	<script>
@@ -164,7 +165,10 @@ window.customTooltip = function (text) {
 		myGameInstance.SendMessage('Stage', 'trigger', 'back');
 	}
 	function zamienkrzeslo() {
-		myGameInstance.SendMessage('chairs', 'ReloadID', "1192,990000");
+		myGameInstance.SendMessage('chairs', 'ReloadID', "7208568,e6ff00");
+	}
+	function pokoloruj() {
+		myGameInstance.SendMessage('chairs', 'LoadColors', "#eacd74,#bc9928,#eacd74,#1b2538");
 	}
 	
 	function loadJsonAndCallFunction() {
