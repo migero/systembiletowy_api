@@ -170,8 +170,8 @@ window.customTooltip = function (text) {
 	function triggerpoczatek() {
 		myGameInstance.SendMessage('Stage', 'trigger', 'back');
 	}
-	function zamienkrzeslo() {
-		myGameInstance.SendMessage('chairs', 'ReloadID', "215114,810DEA");
+	function zamienkrzeslo(p1,p2) {
+		myGameInstance.SendMessage('chairs', 'ReloadID', p1 + ',' + p2);
 	}
 
 	
