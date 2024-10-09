@@ -145,6 +145,12 @@ window.customTooltip = function (text) {
 		loadJsonAndCallFunction()
 		
           loadingBar.style.display = "none";
+		  Swal.fire({
+            title: 'Scena Załadowana',
+            text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+            icon: 'success',
+            confirmButtonText: 'OK'
+        });
           fullscreenButton.onclick = () => {
             unityInstance.SetFullscreen(1);
           };
@@ -164,8 +170,8 @@ window.customTooltip = function (text) {
 	function triggerpoczatek() {
 		myGameInstance.SendMessage('Stage', 'trigger', 'back');
 	}
-	function zamienkrzeslo() {
-		myGameInstance.SendMessage('chairs', 'ReloadID', "215114,810DEA");
+	function zamienkrzeslo(p1,p2) {
+		myGameInstance.SendMessage('chairs', 'ReloadID', p1 + ',' + p2);
 	}
 
 	
