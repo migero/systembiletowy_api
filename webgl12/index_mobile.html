@@ -45,7 +45,8 @@
       )
 	  myGameInstance.SendMessage('Stage', 'trigger', 'back');
     } else if (result.dismiss === 'cancel') {
-      triggerZobaczKrzeslo();
+     // triggerZobaczKrzeslo();
+	 myGameInstance.SendMessage('Stage', 'trigger', 'back');
     }
   });
 	}
